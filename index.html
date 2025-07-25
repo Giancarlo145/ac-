@@ -4,171 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interfaz de Seguros</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN: Enlace a la biblioteca de clases CSS de Tailwind para un diseño rápido y responsivo. -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome for icons: Enlace a la biblioteca de iconos Font Awesome para usar iconos escalables. -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Define custom colors using CSS variables for easy management */
+        /* Definición de colores personalizados usando variables CSS para una gestión sencilla */
         :root {
-            --color-primary-dark: #25295C; /* Very dark blue */
-            --color-secondary-dark: #3A3D68; /* Darker blue-grey */
-            --color-text-muted: #838597; /* Muted grey-blue */
-            --color-white: #FEFEFE; /* Almost white */
-            --color-accent-green: #7ABB52; /* Vibrant green */
+            --color-primary-dark: #25295C; /* Azul muy oscuro */
+            --color-secondary-dark: #3A3D68; /* Azul-gris más oscuro */
+            --color-text-muted: #838597; /* Gris-azul apagado para texto secundario */
+            --color-white: #FEFEFE; /* Blanco casi puro */
+            --color-accent-green: #7ABB52; /* Verde vibrante para acentos */
         }
 
         /* Custom styles for the Inter font and general body styling */
+        /* Estilos personalizados para la fuente Inter y el estilo general del cuerpo */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-white); /* Use almost white for background */
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            color: var(--color-secondary-dark); /* Default text color */
-            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
+            background-color: var(--color-white); /* Usa blanco casi puro para el fondo */
+            -webkit-font-smoothing: antialiased; /* Suavizado de fuente para navegadores WebKit */
+            -moz-osx-font-smoothing: grayscale; /* Suavizado de fuente para navegadores basados en Gecko */
+            color: var(--color-secondary-dark); /* Color de texto predeterminado */
+            overflow-x: hidden; /* Evita el desplazamiento horizontal cuando la barra lateral está abierta */
         }
 
         /* Custom style for the SOS button to make it larger and centered */
+        /* Estilo personalizado para el botón SOS para hacerlo más grande y centrado */
         .sos-button {
-            width: 70px;
-            height: 70px;
-            z-index: 50; /* Ensure it's above other elements */
-            background-color: var(--color-accent-green); /* Green for SOS button */
-            box-shadow: 0 8px 15px rgba(37, 41, 92, 0.4), /* Dark blue shadow for 3D effect */
+            width: 70px; /* Ancho del botón */
+            height: 70px; /* Alto del botón */
+            z-index: 50; /* Asegura que esté por encima de otros elementos */
+            background-color: var(--color-accent-green); /* Verde para el botón SOS */
+            box-shadow: 0 8px 15px rgba(37, 41, 92, 0.4), /* Sombra azul oscura para efecto 3D */
                         0 4px 6px rgba(37, 41, 92, 0.2);
-            transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out; /* Transición suave para efectos hover */
         }
 
         .sos-button:hover {
-            transform: translateY(-2px); /* Only vertical transform for hover */
+            transform: translateY(-2px); /* Solo transformación vertical para el efecto hover */
             box-shadow: 0 10px 20px rgba(37, 41, 92, 0.5),
                         0 6px 8px rgba(37, 41, 92, 0.3);
         }
 
         /* Hide scrollbar for the benefits section but allow scrolling */
+        /* Oculta la barra de desplazamiento para la sección de beneficios pero permite el desplazamiento */
         .no-scrollbar::-webkit-scrollbar {
-            display: none;
+            display: none; /* Oculta la barra de desplazamiento para navegadores WebKit */
         }
         .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;  /* Oculta la barra de desplazamiento para IE y Edge */
+            scrollbar-width: none;  /* Oculta la barra de desplazamiento para Firefox */
         }
 
         /* Custom gradient for insurance cards */
+        /* Gradiente personalizado para las tarjetas de seguros */
         .insurance-card-gradient {
-            background: linear-gradient(135deg, var(--color-white) 0%, #f0f2f5 100%);
+            background: linear-gradient(135deg, var(--color-white) 0%, #f0f2f5 100%); /* Gradiente de blanco a gris claro */
         }
         .insurance-card-gradient:hover {
-            background: linear-gradient(135deg, #f0f2f5 0%, var(--color-white) 100%);
+            background: linear-gradient(135deg, #f0f2f5 0%, var(--color-white) 100%); /* Gradiente invertido al pasar el ratón */
         }
 
         /* Sidebar specific styles */
+        /* Estilos específicos de la barra lateral */
         .sidebar {
-            width: 0; /* Initial state: hidden */
-            transition: width 0.3s ease-in-out;
-            overflow-x: hidden; /* Hide content that overflows */
-            white-space: nowrap; /* Prevent text wrapping */
+            width: 0; /* Estado inicial: oculto */
+            transition: width 0.3s ease-in-out; /* Transición suave para la apertura/cierre */
+            overflow-x: hidden; /* Oculta el contenido que se desborda horizontalmente */
+            white-space: nowrap; /* Evita el ajuste de texto */
         }
 
         .sidebar.open {
-            width: 75%; /* Mobile width */
+            width: 75%; /* Ancho para dispositivos móviles */
         }
 
         @media (min-width: 768px) { /* Tablet and Desktop */
             .sidebar.open {
-                width: 300px; /* Fixed width for larger screens */
+                width: 300px; /* Ancho fijo para pantallas más grandes (tablet y escritorio) */
             }
         }
 
         /* Custom gradient for the icon circles in insurance cards */
+        /* Gradiente personalizado para los círculos de iconos en las tarjetas de seguros */
         .icon-circle-gradient {
-            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-accent-green) 100%);
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-accent-green) 100%); /* Gradiente de azul oscuro a verde */
         }
 
         /* Styles for the benefit banner cards */
+        /* Estilos para las tarjetas de banner de beneficios */
         .benefit-banner-card {
-            background-color: var(--color-white);
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-md */
-            overflow: hidden; /* Ensures image corners are rounded with card */
-            transition: all 0.2s ease-in-out;
-            width: 280px; /* Fixed width for banner cards */
-            height: 150px; /* Fixed height for banner cards */
-            position: relative;
+            background-color: var(--color-white); /* Fondo blanco */
+            border-radius: 0.5rem; /* Bordes redondeados */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Sombra suave */
+            overflow: hidden; /* Asegura que las esquinas de la imagen se redondeen con la tarjeta */
+            transition: all 0.2s ease-in-out; /* Transición suave para efectos hover */
+            width: 280px; /* Ancho fijo para tarjetas de banner */
+            height: 150px; /* Alto fijo para tarjetas de banner */
+            position: relative; /* Para posicionar contenido interno si es necesario */
         }
         .benefit-banner-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* hover:shadow-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Sombra más pronunciada al pasar el ratón */
         }
         .benefit-banner-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures image covers the area without distortion */
-            border-radius: 0.5rem; /* Match card border-radius */
+            width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+            height: 100%; /* La imagen ocupa todo el alto de la tarjeta */
+            object-fit: cover; /* Asegura que la imagen cubra el área sin distorsión */
+            border-radius: 0.5rem; /* Coincide con el radio de borde de la tarjeta */
         }
 
         /* Bottom navigation bar adjustments for centered SOS button */
+        /* Ajustes de la barra de navegación inferior para el botón SOS centrado */
         .bottom-nav-bar {
-            position: fixed; /* Changed to fixed for consistency */
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--color-white);
-            border-top: 1px solid var(--color-text-muted); /* Subtle border */
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 80px; /* Standard height for nav bar */
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* Shadow for nav bar */
-            z-index: 40; /* Ensure it's below SOS button */
+            position: fixed; /* Posición fija en la parte inferior */
+            bottom: 0; /* Pegado al borde inferior */
+            left: 0; /* Pegado al borde izquierdo */
+            right: 0; /* Pegado al borde derecho */
+            background-color: var(--color-white); /* Fondo blanco */
+            border-top: 1px solid var(--color-text-muted); /* Borde superior sutil */
+            display: flex; /* Usa flexbox para la distribución de elementos */
+            justify-content: space-around; /* Distribuye el espacio uniformemente entre los elementos */
+            align-items: center; /* Centra los elementos verticalmente */
+            height: 80px; /* Altura estándar de la barra de navegación */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave en la parte superior */
+            z-index: 40; /* Asegura que esté debajo del botón SOS */
         }
 
         .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding-bottom: 5px; /* Adjust padding for items */
-            flex-grow: 1; /* Allow items to grow and fill space */
-            color: var(--color-text-muted);
-            transition: color 0.2s ease-in-out;
+            display: flex; /* Usa flexbox para el icono y el texto */
+            flex-direction: column; /* Apila el icono y el texto verticalmente */
+            align-items: center; /* Centra el contenido horizontalmente */
+            justify-content: center; /* Centra el contenido verticalmente */
+            text-align: center; /* Alinea el texto al centro */
+            padding: 0 4px; /* Ajusta el padding horizontal para los elementos para separarlos más */
+            flex-grow: 1; /* Permite que los elementos crezcan y llenen el espacio */
+            color: var(--color-text-muted); /* Color de texto predeterminado */
+            transition: color 0.2s ease-in-out; /* Transición suave para el cambio de color */
+        }
+
+        .bottom-nav-item i {
+            font-size: 1.1rem; /* Tamaño de icono más pequeño para móvil */
+            margin-bottom: 4px; /* Espacio entre icono y texto */
+        }
+
+        .bottom-nav-item span {
+            font-size: 0.65rem; /* Tamaño de texto más pequeño para móvil */
+            line-height: 1; /* Ajusta la altura de línea */
+        }
+
+        @media (min-width: 768px) { /* Tablet and Desktop styles */
+            .bottom-nav-item i {
+                font-size: 1.5rem; /* Tamaño de icono para tablet/desktop */
+                margin-bottom: 8px;
+            }
+            .bottom-nav-item span {
+                font-size: 0.875rem; /* Tamaño de texto para tablet/desktop */
+            }
         }
 
         .bottom-nav-item:hover {
-            color: var(--color-primary-dark);
+            color: var(--color-primary-dark); /* Cambia el color al pasar el ratón */
         }
 
         /* SOS button container for precise centering */
+        /* Contenedor del botón SOS para un centrado preciso */
         .sos-button-wrapper {
-            position: absolute;
-            bottom: 30px; /* Adjust this value to control how high the button sits */
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 50; /* Higher z-index than nav bar */
+            position: absolute; /* Posicionamiento absoluto */
+            bottom: 30px; /* Ajusta esta propiedad para controlar la altura del botón */
+            left: 50%; /* Centra horizontalmente */
+            transform: translateX(-50%); /* Ajusta la posición para un centrado perfecto */
+            z-index: 50; /* Mayor z-index que la barra de navegación */
         }
 
         /* User circle in header */
+        /* Círculo de usuario en el encabezado */
         .user-circle {
-            background-color: var(--color-secondary-dark); /* Darker blue-grey for circle */
-            color: var(--color-white); /* White text */
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--color-secondary-dark); /* Azul-gris oscuro para el círculo */
+            color: var(--color-white); /* Texto blanco */
+            width: 40px; /* Ancho del círculo */
+            height: 40px; /* Alto del círculo */
+            border-radius: 50%; /* Hace el elemento circular */
+            display: flex; /* Usa flexbox para centrar el texto */
+            align-items: center; /* Centra el texto verticalmente */
+            justify-content: center; /* Centra el texto horizontalmente */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 1rem; /* Tamaño de fuente */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Sidebar Menu -->
+    <!-- Sidebar Menu: Menú lateral desplegable que aparece al hacer clic en el icono de hamburguesa. -->
     <div id="sidebar" class="sidebar fixed top-0 left-0 h-full bg-white shadow-lg z-40 flex flex-col py-4 rounded-r-lg">
         <div class="p-4 mb-4 flex items-center justify-between">
-            <!-- Close button for sidebar -->
+            <!-- Close button for sidebar: Botón para cerrar la barra lateral. -->
             <button id="close-sidebar" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -249,33 +280,34 @@
     </div>
 
     <!-- Overlay to close sidebar when clicking outside -->
+    <!-- Capa de superposición para cerrar la barra lateral al hacer clic fuera de ella. -->
     <div id="overlay" class="fixed inset-0 bg-black opacity-0 z-30 hidden transition-opacity duration-300"></div>
 
-    <!-- Header Section -->
+    <!-- Header Section: Sección del encabezado de la aplicación. -->
     <header class="bg-white p-4 flex items-center justify-between shadow-sm rounded-b-lg md:px-8 lg:px-12">
-        <!-- Hamburger Menu Icon -->
+        <!-- Hamburger Menu Icon: Botón para abrir la barra lateral (menú de hamburguesa). -->
         <button id="open-sidebar" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
-        <!-- Logo Text -->
+        <!-- Logo Text: Texto del logo "AC+" con colores personalizados. -->
         <div class="flex items-center space-x-0">
             <span class="text-xl font-bold text-primary-dark">AC</span><span class="text-xl font-bold text-accent-green">+</span>
         </div>
-        <!-- User Circle -->
+        <!-- User Circle: Círculo con las letras "Us" para indicar el usuario. -->
         <div class="user-circle">Us</div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-grow p-4 space-y-6 md:p-6 lg:p-8 pb-28"> <!-- Adjusted padding-bottom for space -->
+    <!-- Main Content Area: Área principal de contenido de la aplicación. -->
+    <main class="flex-grow p-4 space-y-6 md:p-6 lg:p-8 pb-28"> <!-- Ajuste del padding inferior para dejar espacio a la barra de navegación. -->
 
-        <!-- Greeting Section -->
+        <!-- Greeting Section: Sección de saludo al usuario. -->
         <section class="mt-4">
             <h1 class="text-2xl font-bold text-secondary-dark md:text-3xl">¡Buenos días Usuario!</h1>
         </section>
 
-        <!-- MIS SEGUROS Section -->
+        <!-- MIS SEGUROS Section: Sección que muestra las categorías de seguros disponibles. -->
         <section class="bg-white p-4 rounded-lg shadow-md md:p-6 lg:p-8">
             <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 mb-4 md:text-xl">MIS SEGUROS</h2>
             <p class="text-text-muted text-sm mb-6 md:text-base">
@@ -283,7 +315,7 @@
             </p>
 
             <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4">
-                <!-- Insurance Card: Autos -->
+                <!-- Insurance Card: Autos: Tarjeta para el seguro de Autos. -->
                 <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-car text-white text-lg"></i>
@@ -293,7 +325,7 @@
                         <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
                     </div>
                 </div>
-                <!-- Insurance Card: Vida -->
+                <!-- Insurance Card: Vida: Tarjeta para el seguro de Vida. -->
                 <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-heartbeat text-white text-lg"></i>
@@ -303,7 +335,7 @@
                         <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
                     </div>
                 </div>
-                <!-- Insurance Card: Gastos Médicos -->
+                <!-- Insurance Card: Gastos Médicos: Tarjeta para el seguro de Gastos Médicos. -->
                 <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-stethoscope text-white text-lg"></i>
@@ -313,7 +345,7 @@
                         <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
                     </div>
                 </div>
-                <!-- Insurance Card: Hogar y mascotas -->
+                <!-- Insurance Card: Hogar y mascotas: Tarjeta para el seguro de Hogar y Mascotas. -->
                 <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
                     <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
                         <i class="fas fa-home text-white text-lg"></i>
@@ -326,7 +358,7 @@
             </div>
         </section>
 
-        <!-- BENEFICIOS SOY CLIENTE Section -->
+        <!-- BENEFICIOS SOY CLIENTE Section: Sección de banners de beneficios para clientes. -->
         <section class="space-y-4">
             <div class="flex items-center justify-between">
                 <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 md:text-xl">BENEFICIOS SOY CLIENTE</h2>
@@ -335,22 +367,22 @@
                 </button>
             </div>
 
-            <!-- Scrollable Benefits Cards -->
+            <!-- Scrollable Benefits Cards: Contenedor con desplazamiento horizontal para las tarjetas de beneficios. -->
             <div class="flex overflow-x-auto space-x-4 pb-2 no-scrollbar lg:justify-center">
-                <!-- Benefit Card: Consulta Médica (Banner Style) -->
+                <!-- Benefit Card: Consulta Médica (Banner Style): Tarjeta de beneficio con estilo de banner para Consulta Médica. -->
                 <div class="benefit-banner-card flex-shrink-0">
                     <img src="https://placehold.co/280x150/E0E7FF/25295C?text=Consulta+Médica" alt="Consulta Médica Banner">
                 </div>
-                <!-- Benefit Card: Descuentos Exclusivos (Banner Style) -->
+                <!-- Benefit Card: Descuentos Exclusivos (Banner Style): Tarjeta de beneficio con estilo de banner para Descuentos Exclusivos. -->
                 <div class="benefit-banner-card flex-shrink-0">
                     <img src="https://placehold.co/280x150/D1E7DD/25295C?text=Descuentos+Exclusivos" alt="Descuentos Exclusivos Banner">
                 </div>
-                <!-- Benefit Card: Soporte 24/7 (Banner Style) -->
+                <!-- Benefit Card: Soporte 24/7 (Banner Style): Tarjeta de beneficio con estilo de banner para Soporte 24/7. -->
                 <div class="benefit-banner-card flex-shrink-0">
                     <img src="https://placehold.co/280x150/FFF3CD/25295C?text=Soporte+24/7" alt="Soporte 24/7 Banner">
                 </div>
             </div>
-            <!-- Pagination Dots -->
+            <!-- Pagination Dots: Indicadores de paginación para las tarjetas de beneficios. -->
             <div class="flex justify-center space-x-2 mt-4">
                 <span class="block w-2 h-2 bg-accent-green rounded-full"></span>
                 <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
@@ -364,70 +396,71 @@
 
     </main>
 
-    <!-- Fixed Bottom Navigation Bar -->
+    <!-- Fixed Bottom Navigation Bar: Barra de navegación fija en la parte inferior de la pantalla. -->
     <nav class="bottom-nav-bar">
-        <!-- SOS Button Wrapper (for precise centering) -->
+        <!-- SOS Button Wrapper: Contenedor para posicionar el botón SOS de forma precisa. -->
         <div class="sos-button-wrapper">
             <button class="sos-button text-white rounded-full flex flex-col items-center justify-center">
                 <span class="text-xl font-bold md:text-2xl">SOS</span>
             </button>
         </div>
-        <!-- Navigation Item: Home -->
+        <!-- Navigation Item: Home: Elemento de navegación para la página de inicio. -->
         <a href="#" class="bottom-nav-item">
-            <i class="fas fa-home text-xl mb-1 md:text-2xl"></i>
+            <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <!-- Navigation Item: Red de Hospitales -->
+        <!-- Navigation Item: Red de Hospitales: Elemento de navegación para la red de hospitales. -->
         <a href="#" class="bottom-nav-item">
-            <i class="fas fa-hospital text-xl mb-1 md:text-2xl"></i>
+            <i class="fas fa-hospital"></i>
             <span>Red de Hospitales</span>
         </a>
-        <!-- Navigation Item: Mis Siniestros -->
+        <!-- Navigation Item: Mis Siniestros: Elemento de navegación para los siniestros del usuario. -->
         <a href="#" class="bottom-nav-item">
-            <i class="fas fa-car-crash text-xl mb-1 md:text-2xl"></i> <!-- Icono para Mis Siniestros -->
+            <i class="fas fa-car-crash"></i> <!-- Icono para Mis Siniestros -->
             <span>Mis siniestros</span>
         </a>
-        <!-- Navigation Item: Línea AC+ -->
+        <!-- Navigation Item: Línea AC+: Elemento de navegación para la línea de atención AC+. -->
         <a href="#" class="bottom-nav-item">
-            <i class="fas fa-phone-alt text-xl mb-1 md:text-2xl"></i>
+            <i class="fas fa-phone-alt"></i>
             <span>Línea AC+</span>
         </a>
     </nav>
 
     <script>
-        // Get references to the elements
-        const openSidebarBtn = document.getElementById('open-sidebar');
-        const closeSidebarBtn = document.getElementById('close-sidebar');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
+        // Get references to the elements: Obtiene referencias a los elementos del DOM.
+        const openSidebarBtn = document.getElementById('open-sidebar'); // Botón para abrir la barra lateral
+        const closeSidebarBtn = document.getElementById('close-sidebar'); // Botón para cerrar la barra lateral
+        const sidebar = document.getElementById('sidebar'); // La barra lateral
+        const overlay = document.getElementById('overlay'); // La capa de superposición
 
-        // Function to open the sidebar
+        // Function to open the sidebar: Función para abrir la barra lateral.
         function openSidebar() {
-            sidebar.classList.add('open');
-            overlay.classList.remove('hidden');
+            sidebar.classList.add('open'); // Añade la clase 'open' para mostrar la barra lateral
+            overlay.classList.remove('hidden'); // Muestra la capa de superposición
             setTimeout(() => {
-                overlay.classList.add('opacity-50'); // Fade in overlay
-            }, 10); // Small delay to allow display to update before transition
+                overlay.classList.add('opacity-50'); // Aplica la opacidad para el efecto de desvanecimiento
+            }, 10); // Pequeño retraso para permitir que la visualización se actualice antes de la transición
         }
 
-        // Function to close the sidebar
+        // Function to close the sidebar: Función para cerrar la barra lateral.
         function closeSidebar() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('opacity-50'); // Fade out overlay
+            sidebar.classList.remove('open'); // Elimina la clase 'open' para ocultar la barra lateral
+            overlay.classList.remove('opacity-50'); // Elimina la opacidad para el efecto de desvanecimiento
             setTimeout(() => {
-                overlay.classList.add('hidden'); // Hide overlay after transition
-            }, 300); // Match transition duration
+                overlay.classList.add('hidden'); // Oculta la capa de superposición después de la transición
+            }, 300); // Coincide con la duración de la transición CSS
         }
 
-        // Event listeners
-        openSidebarBtn.addEventListener('click', openSidebar);
-        closeSidebarBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar); // Close sidebar when clicking overlay
+        // Event listeners: Escuchadores de eventos para la interacción del usuario.
+        openSidebarBtn.addEventListener('click', openSidebar); // Al hacer clic en el botón de hamburguesa, abre la barra lateral
+        closeSidebarBtn.addEventListener('click', closeSidebar); // Al hacer clic en el botón de cierre, cierra la barra lateral
+        overlay.addEventListener('click', closeSidebar); // Al hacer clic en la capa de superposición, cierra la barra lateral
 
-        // Close sidebar if window is resized to a larger view (e.g., desktop)
+        // Close sidebar if window is resized to a larger view (e.g., desktop):
+        // Cierra la barra lateral si la ventana se redimensiona a una vista más grande (ej. escritorio).
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 768 && sidebar.classList.contains('open')) {
-                closeSidebar();
+                closeSidebar(); // Cierra la barra lateral si está abierta y la pantalla es de tablet o escritorio
             }
         });
     </script>
