@@ -33,8 +33,8 @@
         /* Custom style for the SOS button to make it larger and centered */
         /* Estilo personalizado para el botón SOS para hacerlo más grande y centrado */
         .sos-button {
-            width: 70px; /* Ancho del botón */
-            height: 70px; /* Alto del botón */
+            width: 60px; /* Ancho del botón reducido para móvil */
+            height: 60px; /* Alto del botón reducido para móvil */
             z-index: 50; /* Asegura que esté por encima de otros elementos */
             background-color: var(--color-accent-green); /* Verde para el botón SOS */
             box-shadow: 0 8px 15px rgba(37, 41, 92, 0.4), /* Sombra azul oscura para efecto 3D */
@@ -144,12 +144,12 @@
         }
 
         .bottom-nav-item i {
-            font-size: 1.1rem; /* Tamaño de icono más pequeño para móvil */
-            margin-bottom: 4px; /* Espacio entre icono y texto */
+            font-size: 1.0rem; /* Tamaño de icono más pequeño para móvil */
+            margin-bottom: 2px; /* Espacio entre icono y texto reducido */
         }
 
         .bottom-nav-item span {
-            font-size: 0.65rem; /* Tamaño de texto más pequeño para móvil */
+            font-size: 0.6rem; /* Tamaño de texto más pequeño para móvil */
             line-height: 1; /* Ajusta la altura de línea */
         }
 
@@ -171,11 +171,20 @@
         /* Contenedor del botón SOS para un centrado preciso */
         .sos-button-wrapper {
             position: absolute; /* Posicionamiento absoluto */
-            bottom: 30px; /* Ajusta esta propiedad para controlar la altura del botón */
+            bottom: 35px; /* Ajusta esta propiedad para subir el botón */
             left: 50%; /* Centra horizontalmente */
             transform: translateX(-50%); /* Ajusta la posición para un centrado perfecto */
             z-index: 50; /* Mayor z-index que la barra de navegación */
         }
+        .sos-button-wrapper .sos-button span {
+            font-size: 1.1rem; /* Tamaño de fuente del texto SOS para móvil */
+        }
+        @media (min-width: 768px) { /* Tablet and Desktop styles for SOS button text */
+            .sos-button-wrapper .sos-button span {
+                font-size: 1.5rem; /* Tamaño de fuente del texto SOS para tablet/desktop */
+            }
+        }
+
 
         /* User circle in header */
         /* Círculo de usuario en el encabezado */
