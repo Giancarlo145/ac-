@@ -1,9 +1,13 @@
+<!-- 
+    Este es un documento HTML autónomo que contiene la interfaz de usuario de la aplicación de seguros.
+    Utiliza Tailwind CSS para el diseño, Font Awesome para los iconos y JavaScript para la interactividad.
+-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interfaz de Seguros</title>
+    <title>AC+ Seguros</title>
     <!-- Tailwind CSS CDN: Enlace a la biblioteca de clases CSS de Tailwind para un diseño rápido y responsivo. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome for icons: Enlace a la biblioteca de iconos Font Awesome para usar iconos escalables. -->
@@ -203,274 +207,245 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+    <div class="min-h-screen flex flex-col">
 
-    <!-- Sidebar Menu: Menú lateral desplegable que aparece al hacer clic en el icono de hamburguesa. -->
-    <div id="sidebar" class="sidebar fixed top-0 left-0 h-full bg-white shadow-lg z-40 flex flex-col py-4 rounded-r-lg">
-        <div class="p-4 mb-4 flex items-center justify-between">
-            <!-- Close button for sidebar: Botón para cerrar la barra lateral. -->
-            <button id="close-sidebar" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
+        <!-- Sidebar Menu: Menú lateral desplegable que aparece al hacer clic en el icono de hamburguesa. -->
+        <div id="sidebar" class="sidebar fixed top-0 left-0 h-full bg-white shadow-lg z-40 flex flex-col py-4 rounded-r-lg">
+            <div class="p-4 mb-4 flex items-center justify-between">
+                <!-- Close button for sidebar: Botón para cerrar la barra lateral. -->
+                <button id="closeSidebarBtn" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <span class="text-lg font-bold text-primary-dark">Menú</span>
+            </div>
+
+            <nav class="flex-grow overflow-y-auto">
+                <ul class="space-y-2 px-4">
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-bell text-xl mr-4"></i>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-phone-alt text-xl mr-4"></i>
+                            <span>Contacto AC+</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-file-alt text-xl mr-4"></i>
+                            <span>Formatos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-book text-xl mr-4"></i>
+                            <span>Tutorial</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-file-medical text-xl mr-4"></i>
+                            <span>Registrar siniestro</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-history text-xl mr-4"></i>
+                            <span>Historial siniestro</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-shield-alt text-xl mr-4"></i>
+                            <span>Aviso de privacidad</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-question-circle text-xl mr-4"></i>
+                            <span>Ayuda</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-cog text-xl mr-4"></i>
+                            <span>Configuración</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
+                            <i class="fas fa-sign-out-alt text-xl mr-4"></i>
+                            <span>Cerrar sesión</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="p-4 text-center text-text-muted text-sm mt-4">
+                <p>Última sesión: 04-03-2025 12:16:08</p>
+                <p>Versión 7.8.80</p>
+            </div>
+        </div>
+
+        <!-- Overlay to close sidebar when clicking outside -->
+        <!-- Capa de superposición para cerrar la barra lateral al hacer clic fuera de ella. -->
+        <div id="overlay" class="fixed inset-0 bg-black opacity-0 z-30 hidden transition-opacity duration-300"></div>
+
+        <!-- Header Section: Sección del encabezado de la aplicación. -->
+        <header class="bg-white p-4 flex items-center justify-between shadow-sm rounded-b-lg md:px-8 lg:px-12">
+            <!-- Hamburger Menu Icon: Botón para abrir la barra lateral (menú de hamburguesa). -->
+            <button id="openSidebarBtn" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
-            <span class="text-lg font-bold text-primary-dark">Menú</span>
-        </div>
-
-        <nav class="flex-grow overflow-y-auto">
-            <ul class="space-y-2 px-4">
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-bell text-xl mr-4"></i>
-                        <span>Notificaciones</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-phone-alt text-xl mr-4"></i>
-                        <span>Contacto AC+</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-file-alt text-xl mr-4"></i>
-                        <span>Formatos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-book text-xl mr-4"></i>
-                        <span>Tutorial</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-file-medical text-xl mr-4"></i> <!-- Icono para registrar siniestro -->
-                        <span>Registrar siniestro</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-history text-xl mr-4"></i> <!-- Icono para historial siniestro -->
-                        <span>Historial siniestro</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-shield-alt text-xl mr-4"></i>
-                        <span>Aviso de privacidad</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-question-circle text-xl mr-4"></i>
-                        <span>Ayuda</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-cog text-xl mr-4"></i>
-                        <span>Configuración</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-3 rounded-lg text-secondary-dark hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-sign-out-alt text-xl mr-4"></i>
-                        <span>Cerrar sesión</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="p-4 text-center text-text-muted text-sm mt-4">
-            <p>Última sesión: 04-03-2025 12:16:08</p>
-            <p>Versión 7.8.80</p>
-        </div>
-    </div>
-
-    <!-- Overlay to close sidebar when clicking outside -->
-    <!-- Capa de superposición para cerrar la barra lateral al hacer clic fuera de ella. -->
-    <div id="overlay" class="fixed inset-0 bg-black opacity-0 z-30 hidden transition-opacity duration-300"></div>
-
-    <!-- Header Section: Sección del encabezado de la aplicación. -->
-    <header class="bg-white p-4 flex items-center justify-between shadow-sm rounded-b-lg md:px-8 lg:px-12">
-        <!-- Hamburger Menu Icon: Botón para abrir la barra lateral (menú de hamburguesa). -->
-        <button id="open-sidebar" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
-        <!-- Logo Text: Texto del logo "AC+" con colores personalizados. -->
-        <div class="flex items-center space-x-0">
-            <span class="text-xl font-bold text-primary-dark">AC</span><span class="text-xl font-bold text-accent-green">+</span>
-        </div>
-        <!-- User Circle: Círculo con las letras "Us" para indicar el usuario. -->
-        <div class="user-circle">Us</div>
-    </header>
-
-    <!-- Main Content Area: Área principal de contenido de la aplicación. -->
-    <main class="flex-grow p-4 space-y-6 md:p-6 lg:p-8 pb-28"> <!-- Ajuste del padding inferior para dejar espacio a la barra de navegación. -->
-
-        <!-- Greeting Section: Sección de saludo al usuario. -->
-        <section class="mt-4">
-            <h1 class="text-2xl font-bold text-secondary-dark md:text-3xl">¡Buenos días Usuario!</h1>
-        </section>
-
-        <!-- MIS SEGUROS Section: Sección que muestra las categorías de seguros disponibles. -->
-        <section class="bg-white p-4 rounded-lg shadow-md md:p-6 lg:p-8">
-            <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 mb-4 md:text-xl">MIS SEGUROS</h2>
-            <p class="text-text-muted text-sm mb-6 md:text-base">
-                Parece que aún no tienes pólizas registradas, conoce los seguros que tenemos para ti:
-            </p>
-
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4">
-                <!-- Insurance Card: Autos: Tarjeta para el seguro de Autos. -->
-                <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-car text-white text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="font-semibold text-secondary-dark text-sm md:text-base block">Autos</span>
-                        <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
-                    </div>
-                </div>
-                <!-- Insurance Card: Vida: Tarjeta para el seguro de Vida. -->
-                <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-heartbeat text-white text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="font-semibold text-secondary-dark text-sm md:text-base block">Vida</span>
-                        <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
-                    </div>
-                </div>
-                <!-- Insurance Card: Gastos Médicos: Tarjeta para el seguro de Gastos Médicos. -->
-                <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-stethoscope text-white text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="font-semibold text-secondary-dark text-sm md:text-base block">Gastos Médicos</span>
-                        <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
-                    </div>
-                </div>
-                <!-- Insurance Card: Hogar y mascotas: Tarjeta para el seguro de Hogar y Mascotas. -->
-                <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                    <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-home text-white text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="font-semibold text-secondary-dark text-sm md:text-base block">Hogar y mascotas</span>
-                        <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Conoce más</a>
-                    </div>
-                </div>
+            <!-- Logo Text: Texto del logo "AC+" con colores personalizados. -->
+            <div class="flex items-center space-x-0">
+                <span class="text-xl font-bold text-primary-dark">AC</span><span class="text-xl font-bold text-accent-green">+</span>
             </div>
-        </section>
+            <!-- User Circle: Círculo con las letras "Us" para indicar el usuario. -->
+            <div class="user-circle">Us</div>
+        </header>
 
-        <!-- BENEFICIOS SOY CLIENTE Section: Sección de banners de beneficios para clientes. -->
-        <section class="space-y-4">
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 md:text-xl">BENEFICIOS SOY CLIENTE</h2>
-                <button class="text-text-muted hover:text-secondary-dark transition-colors">
-                    <i class="fas fa-chevron-right text-lg md:text-xl"></i>
+        <!-- Main Content Area: Área principal de contenido de la aplicación. -->
+        <main class="flex-grow p-4 space-y-6 md:p-6 lg:p-8 pb-28"> <!-- Ajuste del padding inferior para dejar espacio a la barra de navegación. -->
+
+            <!-- Greeting Section: Sección de saludo al usuario. -->
+            <section class="mt-4">
+                <h1 class="text-2xl font-bold text-secondary-dark md:text-3xl">¡Buenos días Usuario!</h1>
+            </section>
+
+            <!-- MIS SEGUROS Section: Sección que muestra las categorías de seguros disponibles. -->
+            <section class="bg-white p-4 rounded-lg shadow-md md:p-6 lg:p-8">
+                <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 mb-4 md:text-xl">MIS SEGUROS</h2>
+                
+                <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-4">
+                    <!-- Insurance Card: Registrar Siniestro -->
+                    <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-content-center flex-shrink-0">
+                            <i class="fas fa-file-medical-alt text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-secondary-dark text-sm md:text-base block">Registrar Siniestro</span>
+                            <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Iniciar</a>
+                        </div>
+                    </div>
+                    <!-- Insurance Card: Historial Siniestro -->
+                    <div class="insurance-card-gradient p-3 rounded-lg flex items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="icon-circle-gradient p-2 rounded-full mr-3 w-10 h-10 flex items-center justify-content-center flex-shrink-0">
+                            <i class="fas fa-history text-white text-lg"></i>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-secondary-dark text-sm md:text-base block">Historial Siniestro</span>
+                            <a href="#" class="text-accent-green text-xs md:text-sm mt-0 hover:underline">Consultar</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INFORMACIÓN QUE CURA Section: Sección de banners de beneficios para clientes. -->
+            <section class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-primary-dark border-l-4 border-accent-green pl-2 md:text-xl">INFORMACIÓN QUE CURA</h2>
+                    <button class="text-text-muted hover:text-secondary-dark transition-colors">
+                        <i class="fas fa-chevron-right text-lg md:text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Scrollable Benefits Cards: Contenedor con desplazamiento horizontal para las tarjetas de beneficios. -->
+                <div class="flex overflow-x-auto space-x-4 pb-2 no-scrollbar lg:justify-center">
+                    <!-- Benefit Card: Salud y Bienestar (Banner Style): Tarjeta de beneficio con estilo de banner para Salud y Bienestar. -->
+                    <div class="benefit-banner-card flex-shrink-0">
+                        <img src="https://placehold.co/280x150/A6D5E9/25295C?text=Salud+y+Bienestar" alt="Banner Salud y Bienestar">
+                    </div>
+                    <!-- Benefit Card: Consejos de Primeros Auxilios (Banner Style): Tarjeta de beneficio con estilo de banner para Consejos de Primeros Auxilios. -->
+                    <div class="benefit-banner-card flex-shrink-0">
+                        <img src="https://placehold.co/280x150/F5D7A4/25295C?text=Primeros+Auxilios" alt="Banner Primeros Auxilios">
+                    </div>
+                    <!-- Benefit Card: Prevención de Accidentes (Banner Style): Tarjeta de beneficio con estilo de banner para Prevención de Accidentes. -->
+                    <div class="benefit-banner-card flex-shrink-0">
+                        <img src="https://placehold.co/280x150/C1E1C1/25295C?text=Prevencion+de+Accidentes" alt="Banner Prevencion de Accidentes">
+                    </div>
+                </div>
+                <!-- Pagination Dots: Indicadores de paginación para las tarjetas de beneficios. -->
+                <div class="flex justify-center space-x-2 mt-4">
+                    <span class="block w-2 h-2 bg-accent-green rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                    <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Fixed Bottom Navigation Bar: Barra de navegación fija en la parte inferior de la pantalla. -->
+        <nav class="bottom-nav-bar">
+            <!-- SOS Button Wrapper: Contenedor para posicionar el botón SOS de forma precisa. -->
+            <div class="sos-button-wrapper">
+                <button class="sos-button text-white rounded-full flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold md:text-2xl">SOS</span>
                 </button>
             </div>
+            <!-- Navigation Item: Home: Elemento de navegación para la página de inicio. -->
+            <a href="#" class="bottom-nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <!-- Navigation Item: Red de Hospitales: Elemento de navegación para la red de hospitales. -->
+            <a href="#" class="bottom-nav-item">
+                <i class="fas fa-hospital"></i>
+                <span>Red de Hospitales</span>
+            </a>
+            <!-- Navigation Item: Mis Siniestros: Elemento de navegación para los siniestros del usuario. -->
+            <a href="#" class="bottom-nav-item">
+                <i class="fas fa-car-crash"></i> <!-- Icono para Mis Siniestros -->
+                <span>Mis siniestros</span>
+            </a>
+            <!-- Navigation Item: Línea AC+: Elemento de navegación para la línea de atención AC+. -->
+            <a href="#" class="bottom-nav-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>Línea AC+</span>
+            </a>
+        </nav>
+    </div>
 
-            <!-- Scrollable Benefits Cards: Contenedor con desplazamiento horizontal para las tarjetas de beneficios. -->
-            <div class="flex overflow-x-auto space-x-4 pb-2 no-scrollbar lg:justify-center">
-                <!-- Benefit Card: Consulta Médica (Banner Style): Tarjeta de beneficio con estilo de banner para Consulta Médica. -->
-                <div class="benefit-banner-card flex-shrink-0">
-                    <img src="https://placehold.co/280x150/E0E7FF/25295C?text=Consulta+Médica" alt="Consulta Médica Banner">
-                </div>
-                <!-- Benefit Card: Descuentos Exclusivos (Banner Style): Tarjeta de beneficio con estilo de banner para Descuentos Exclusivos. -->
-                <div class="benefit-banner-card flex-shrink-0">
-                    <img src="https://placehold.co/280x150/D1E7DD/25295C?text=Descuentos+Exclusivos" alt="Descuentos Exclusivos Banner">
-                </div>
-                <!-- Benefit Card: Soporte 24/7 (Banner Style): Tarjeta de beneficio con estilo de banner para Soporte 24/7. -->
-                <div class="benefit-banner-card flex-shrink-0">
-                    <img src="https://placehold.co/280x150/FFF3CD/25295C?text=Soporte+24/7" alt="Soporte 24/7 Banner">
-                </div>
-            </div>
-            <!-- Pagination Dots: Indicadores de paginación para las tarjetas de beneficios. -->
-            <div class="flex justify-center space-x-2 mt-4">
-                <span class="block w-2 h-2 bg-accent-green rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-                <span class="block w-2 h-2 bg-text-muted rounded-full"></span>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Fixed Bottom Navigation Bar: Barra de navegación fija en la parte inferior de la pantalla. -->
-    <nav class="bottom-nav-bar">
-        <!-- SOS Button Wrapper: Contenedor para posicionar el botón SOS de forma precisa. -->
-        <div class="sos-button-wrapper">
-            <button class="sos-button text-white rounded-full flex flex-col items-center justify-center">
-                <span class="text-xl font-bold md:text-2xl">SOS</span>
-            </button>
-        </div>
-        <!-- Navigation Item: Home: Elemento de navegación para la página de inicio. -->
-        <a href="#" class="bottom-nav-item">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <!-- Navigation Item: Red de Hospitales: Elemento de navegación para la red de hospitales. -->
-        <a href="#" class="bottom-nav-item">
-            <i class="fas fa-hospital"></i>
-            <span>Red de Hospitales</span>
-        </a>
-        <!-- Navigation Item: Mis Siniestros: Elemento de navegación para los siniestros del usuario. -->
-        <a href="#" class="bottom-nav-item">
-            <i class="fas fa-car-crash"></i> <!-- Icono para Mis Siniestros -->
-            <span>Mis siniestros</span>
-        </a>
-        <!-- Navigation Item: Línea AC+: Elemento de navegación para la línea de atención AC+. -->
-        <a href="#" class="bottom-nav-item">
-            <i class="fas fa-phone-alt"></i>
-            <span>Línea AC+</span>
-        </a>
-    </nav>
-
+    <!-- JavaScript for Sidebar functionality -->
+    <!-- JavaScript para la funcionalidad de la barra lateral -->
     <script>
-        // Get references to the elements: Obtiene referencias a los elementos del DOM.
-        const openSidebarBtn = document.getElementById('open-sidebar'); // Botón para abrir la barra lateral
-        const closeSidebarBtn = document.getElementById('close-sidebar'); // Botón para cerrar la barra lateral
-        const sidebar = document.getElementById('sidebar'); // La barra lateral
-        const overlay = document.getElementById('overlay'); // La capa de superposición
+        document.addEventListener('DOMContentLoaded', () => {
+            const openSidebarBtn = document.getElementById('openSidebarBtn');
+            const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
 
-        // Function to open the sidebar: Función para abrir la barra lateral.
-        function openSidebar() {
-            sidebar.classList.add('open'); // Añade la clase 'open' para mostrar la barra lateral
-            overlay.classList.remove('hidden'); // Muestra la capa de superposición
-            setTimeout(() => {
-                overlay.classList.add('opacity-50'); // Aplica la opacidad para el efecto de desvanecimiento
-            }, 10); // Pequeño retraso para permitir que la visualización se actualice antes de la transición
-        }
-
-        // Function to close the sidebar: Función para cerrar la barra lateral.
-        function closeSidebar() {
-            sidebar.classList.remove('open'); // Elimina la clase 'open' para ocultar la barra lateral
-            overlay.classList.remove('opacity-50'); // Elimina la opacidad para el efecto de desvanecimiento
-            setTimeout(() => {
-                overlay.classList.add('hidden'); // Oculta la capa de superposición después de la transición
-            }, 300); // Coincide con la duración de la transición CSS
-        }
-
-        // Event listeners: Escuchadores de eventos para la interacción del usuario.
-        openSidebarBtn.addEventListener('click', openSidebar); // Al hacer clic en el botón de hamburguesa, abre la barra lateral
-        closeSidebarBtn.addEventListener('click', closeSidebar); // Al hacer clic en el botón de cierre, cierra la barra lateral
-        overlay.addEventListener('click', closeSidebar); // Al hacer clic en la capa de superposición, cierra la barra lateral
-
-        // Close sidebar if window is resized to a larger view (e.g., desktop):
-        // Cierra la barra lateral si la ventana se redimensiona a una vista más grande (ej. escritorio).
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768 && sidebar.classList.contains('open')) {
-                closeSidebar(); // Cierra la barra lateral si está abierta y la pantalla es de tablet o escritorio
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.add('opacity-50');
+                }, 10);
             }
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('opacity-50');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+
+            openSidebarBtn.addEventListener('click', openSidebar);
+            closeSidebarBtn.addEventListener('click', closeSidebar);
+            overlay.addEventListener('click', closeSidebar);
         });
     </script>
 </body>
